@@ -24,9 +24,6 @@
     <ClCompile Include="JFC\JApplication.cpp">
       <Filter>JFC</Filter>
     </ClCompile>
-    <ClCompile Include="JFC\JEvent.cpp">
-      <Filter>JFC</Filter>
-    </ClCompile>
     <ClCompile Include="JFC\JWindow.cpp">
       <Filter>JFC</Filter>
     </ClCompile>

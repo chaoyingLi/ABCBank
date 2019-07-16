@@ -116,7 +116,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="JFC\JApplication.cpp" />
-    <ClCompile Include="JFC\JEvent.cpp" />
     <ClCompile Include="JFC\JWindow.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
