@@ -27,6 +27,9 @@
     <ClCompile Include="JFC\JWindow.cpp">
       <Filter>JFC</Filter>
     </ClCompile>
+    <ClCompile Include="JFC\JWindowBase.cpp">
+      <Filter>JFC</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="JFC\JApplication.h">
@@ -36,6 +39,12 @@
       <Filter>JFC</Filter>
     </ClInclude>
     <ClInclude Include="JFC\JWindow.h">
+      <Filter>JFC</Filter>
+    </ClInclude>
+    <ClInclude Include="JFC\Color.h">
+      <Filter>JFC</Filter>
+    </ClInclude>
+    <ClInclude Include="JFC\JWindowBase.h">
       <Filter>JFC</Filter>
     </ClInclude>
   </ItemGroup>

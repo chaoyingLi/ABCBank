@@ -117,12 +117,15 @@
   <ItemGroup>
     <ClCompile Include="JFC\JApplication.cpp" />
     <ClCompile Include="JFC\JWindow.cpp" />
+    <ClCompile Include="JFC\JWindowBase.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="JFC\Color.h" />
     <ClInclude Include="JFC\JApplication.h" />
     <ClInclude Include="JFC\JEvent.h" />
     <ClInclude Include="JFC\JWindow.h" />
+    <ClInclude Include="JFC\JWindowBase.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -14,8 +14,11 @@ public:
 
 	static JApplication* Instance() { return self_; }
 
+	void ShowCursor() const;
+	void HideCursor() const;
+
 	JWindow* GetCurrent() const { return current_; }
-	JWindow* SetCurrent(JWindow* win) { current_ = win; }
+	void  SetCurrent(JWindow* win) { current_ = win; }
 	JWindow* Root() const { return root_; }
 
 	int Exec();// 消息循环
