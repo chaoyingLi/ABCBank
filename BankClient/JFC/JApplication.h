@@ -1,11 +1,12 @@
 #ifndef _JAPPLICATION_H_
-	#define _JAPPLICATION_H_
+#define _JAPPLICATION_H_
 
-namespace JFC {
+namespace JFC
+{
 
-	class JWindow;
+class JWindow;
 
-// 涓�绉嶇壒娈婄殑鍗曚緥妯″紡,QT
+// 一种特殊的单例模式，模仿QT
 class JApplication
 {
 public:
@@ -18,17 +19,17 @@ public:
 	void HideCursor() const;
 
 	JWindow* GetCurrent() const { return current_; }
-	void  SetCurrent(JWindow* win) { current_ = win; }
+	void SetCurrent(JWindow* win) { current_ = win; }
 	JWindow* Root() const { return root_; }
 
-	int Exec();// 娑堟伅寰幆
+	int Exec();				// 消息循环
 
 private:
-	static JApplication* self_;//JApplication鑷繁
-	JWindow* current_; // 褰撳墠鎺ユ敹鎸夐敭鐨勭獥鍙Window
-	JWindow* root_;// 鏍圭獥鍙Window
+	static JApplication* self_;
+	JWindow* current_;		// 当前接收按键的窗口
+	JWindow* root_;			// 根
 };
-#define jApp JApplication::Instance()
 
-}//nmaespace JFC
-#endif // !_JAPPLICATION_H_
+#define jApp JApplication::Instance()
+}
+#endif // _JAPPLICATION_H_

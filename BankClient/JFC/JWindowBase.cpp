@@ -6,19 +6,19 @@ JWindowBase::ScreenBuffer JWindowBase::sb_;
 
 JWindowBase::JWindowBase()
 	: x_(0),
-	y_(0),
-	width_(0),
-	height_(0)
+	  y_(0),
+	  width_(0),
+	  height_(0)
 {
 }
 
 JWindowBase::JWindowBase(SHORT x, SHORT y, SHORT width, SHORT height)
 	: x_(x),
-	y_(y),
-	width_(width),
-	height_(height),
-	fColor_(FCOLOR_BLACK),
-	bColor_(BCOLOR_WHITE)
+	  y_(y),
+	  width_(width),
+	  height_(height),
+	  fColor_(FCOLOR_BLACK),
+	  bColor_(BCOLOR_WHITE)
 {
 }
 
@@ -27,20 +27,20 @@ JWindowBase::~JWindowBase()
 }
 
 
-// è®¾ç½®å…‰æ ‡ä½ç½®
+// ÉèÖÃ¹â±êÎ»ÖÃ
 void JWindowBase::SetCursorPos(SHORT x, SHORT y)
 {
 	COORD pos = { x, y };
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
 }
 
-// åˆ·æ–°çª—å£
+// Ë¢ĞÂ´°¿Ú
 void JWindowBase::Refresh()
 {
 	sb_.refresh(x_, y_, width_, height_);
 }
 
-// æ¸…é™¤çŸ©å½¢åŒºåŸŸ
+// Çå³ı¾ØĞÎÇøÓò
 void JWindowBase::FillRect(JRECT rect)
 {
 	SHORT x;
@@ -54,19 +54,19 @@ void JWindowBase::FillRect(JRECT rect)
 	{
 		for (x = rect.Left; x <= rect.Right; ++x)
 		{
-			sb_.write(x_ + x, y_ + y, ch);
+			sb_.write(x_+x, y_+y, ch);
 		}
 	}
 
 }
 
-// ç»˜åˆ¶æ–‡æœ¬ï¼ˆx, yç›¸å¯¹äºæœ¬çª—å£çš„ä½ç½®ï¼Œå¹¶ä¸æ˜¯ç›¸å¯¹æ•´ä¸ªæ§åˆ¶å°çª—å£çš„ä½ç½®ï¼‰
+// »æÖÆÎÄ±¾£¨x, yÏà¶ÔÓÚ±¾´°¿ÚµÄÎ»ÖÃ£¬²¢²»ÊÇÏà¶ÔÕû¸ö¿ØÖÆÌ¨´°¿ÚµÄÎ»ÖÃ£©
 void JWindowBase::DrawText(SHORT x, SHORT y, const std::string& text)
 {
-	sb_.write(x_ + x, y_ + y, text, fColor_, bColor_);
+	sb_.write(x_+x, y_+y, text, fColor_, bColor_);
 }
 
-// åœ¨çª—å£æ­£ä¸­é—´ç»˜åˆ¶æ–‡æœ¬
+// ÔÚ´°¿ÚÕıÖĞ¼ä»æÖÆÎÄ±¾
 void JWindowBase::DrawText(const std::string& text)
 {
 	SHORT x = (Width() - text.length()) / 2;
@@ -74,7 +74,7 @@ void JWindowBase::DrawText(const std::string& text)
 	DrawText(x, y, text);
 }
 
-// åœ¨æ°´å¹³ä½ç½®ç”»çº¿
+// ÔÚË®Æ½Î»ÖÃ»­Ïß
 void JWindowBase::DrawHLine(SHORT y, SHORT x1, SHORT x2, char ch)
 {
 	size_t count;
@@ -82,19 +82,19 @@ void JWindowBase::DrawHLine(SHORT y, SHORT x1, SHORT x2, char ch)
 	if (x1 < x2)
 	{
 		x = x1;
-		count = x1 - x2 + 1;
+		count = x2 - x1 + 1;
 	}
 	else
 	{
 		x = x2;
-		count = x2 - x1 + 1;
+		count = x1 - x2 + 1;
 	}
 
 	std::string str(count, ch);
 	DrawText(x, y, str);
 }
 
-// åœ¨å‚ç›´ä½ç½®ç”»çº¿
+// ÔÚ´¹Ö±Î»ÖÃ»­Ïß
 void JWindowBase::DrawVLine(SHORT x, SHORT y1, SHORT y2, char ch)
 {
 	size_t count;
@@ -102,27 +102,28 @@ void JWindowBase::DrawVLine(SHORT x, SHORT y1, SHORT y2, char ch)
 	if (y1 < y2)
 	{
 		y = y1;
-		count = y1 - y2 + 1;
+		count = y2 - y1 + 1;
 	}
 	else
 	{
-		x = y2;
-		count = y2 - y1 + 1;
+		y = y2;
+		count = y1 - y2 + 1;
 	}
 
 	CHAR_INFO ci;
 	ci.Char.AsciiChar = ch;
 	ci.Attributes = fColor_ | bColor_;
-	for (size_t i = 0; i < count; ++i)
+	for (size_t i=0; i<count; ++i)
 	{
-		sb_.write(x_ + x, y_ + y, ci);
+		sb_.write(x_+x, y_+y, ci);
+		++y;
 	}
 }
 
 
-// æ¸…é™¤çª—å£
+// Çå³ı´°¿Ú
 void JWindowBase::ClearWindow()
 {
-	JRECT rect = { 0, 0, Width() - 1, Height() - 1 };
+	JRECT rect = { 0, 0, Width()-1, Height()-1 };
 	FillRect(rect);
 }
