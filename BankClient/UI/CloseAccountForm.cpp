@@ -2,9 +2,16 @@
 
 #include "FormManager.h"
 #include "MainMenuForm.h"
+#include "ReceiptForm.h"
 #include "Validator.h"
 
+#include "../BankSession.h"
+#include "../TransactionManager.h"
+
 #include "../JFC/JMessageBox.h"
+
+#include "../../Public/Exception.h"
+#include "../../Public/JUtil.h"
 
 using namespace UI;
 using namespace PUBLIC;
@@ -142,4 +149,59 @@ void CloseAccountForm::Submit()
 	}
 
 	// 以下为实际的销户操作
+	try
+	{
+		BankSession bs;
+		bs.SetCmd(CMD_CLOSE_ACCOUNT);
+		bs.SetAttribute("account_id", editAccountId_->GetText());
+		bs.SetAttribute("pass", editPass_->GetText());
+
+		Singleton<TransactionManager>::Instance().DoAction(bs);
+		if (bs.GetErrorCode() == 0)
+		{
+			Reset();
+			std::vector<std::string> v;
+			v.push_back(" YES ");
+
+			ReceiptForm* form;
+			form = dynamic_cast<ReceiptForm*>(Singleton<FormManager>::Instance().Get("CloseAccountReceiptForm"));
+			form->SetReceiptFormType(ReceiptForm::RFT_CLOSE_ACCOUNT);
+			form->SetTitle("销户成功");
+
+
+			double total = Convert::StringToDouble(bs.GetResponse("balance"))
+				+ Convert::StringToDouble(bs.GetResponse("interest"));
+
+			form->SetItemText("销户日期", bs.GetResponse("close_date"));
+			form->SetItemText("户    名", bs.GetResponse("name"));
+			form->SetItemText("帐    号", bs.GetAttribute("account_id"));
+			form->SetItemText("余    额", bs.GetResponse("balance"));
+			form->SetItemText("利    息", bs.GetResponse("interest"));
+			form->SetItemText("总    计", Convert::DoubleToString(total));
+
+			form->Show();
+		}
+		else
+		{
+			std::vector<std::string> v;
+			v.push_back(" YES ");
+
+			JMessageBox::Show("-ERROR-", bs.GetErrorMsg(), v);
+			ClearWindow();
+			Show();
+			return;
+		}
+	}
+
+	catch (Exception& e)
+	{
+		std::vector<std::string> v;
+		v.push_back(" YES ");
+
+		int result = JMessageBox::Show("-ERROR-", e.what(), v);
+		ClearWindow();
+		Show();
+
+		return;
+	}
 }

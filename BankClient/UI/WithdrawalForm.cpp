@@ -2,9 +2,15 @@
 
 #include "FormManager.h"
 #include "MainMenuForm.h"
+#include "ReceiptForm.h"
 #include "Validator.h"
 
+#include "../BankSession.h"
+#include "../TransactionManager.h"
+
 #include "../JFC/JMessageBox.h"
+
+#include "../../Public/Exception.h"
 
 using namespace UI;
 
@@ -159,6 +165,64 @@ void WithdrawalForm::Submit()
 		ClearWindow();
 		Show();
 		editPass_->Show();
+		return;
+	}
+	// 以下为实际的取款操作
+	try
+	{
+		BankSession bs;
+		bs.SetCmd(CMD_WITHDRAW);
+		bs.SetAttribute("account_id", editAccountId_->GetText());
+		bs.SetAttribute("pass", editPass_->GetText());
+		bs.SetAttribute("money", editMoney_->GetText());
+
+		Singleton<TransactionManager>::Instance().DoAction(bs);
+		if (bs.GetErrorCode() == 0)
+		{
+			Reset();
+			std::vector<std::string> v;
+			v.push_back(" YES ");
+			std::string msg = "取款成功" + bs.GetResponse("money");
+
+			/*int result = JMessageBox::Show("-MESSAGE-", msg,v);
+			ClearWindow();
+			Show();*/
+
+			ReceiptForm* form;
+			form = dynamic_cast<ReceiptForm*>(Singleton<FormManager>::Instance().Get("ReceiptForm"));
+			form->SetReceiptFormType(ReceiptForm::RFT_WITHDRAW);
+			form->SetTitle("取款成功");
+
+			form->SetItemText("交易日期", bs.GetResponse("trans_date"));
+			form->SetItemText("户    名", bs.GetResponse("name"));
+			form->SetItemText("帐    号", bs.GetAttribute("account_id"));
+			form->SetItemText("交易金额", bs.GetAttribute("money"));
+			form->SetItemText("摘    要", "取款");
+			form->SetItemText("余    额", bs.GetResponse("balance"));
+
+			form->Show();
+		}
+		else
+		{
+			std::vector<std::string> v;
+			v.push_back(" YES ");
+
+			JMessageBox::Show("-ERROR-", bs.GetErrorMsg(), v);
+			ClearWindow();
+			Show();
+			return;
+		}
+	}
+
+	catch (Exception& e)
+	{
+		std::vector<std::string> v;
+		v.push_back(" YES ");
+
+		int result = JMessageBox::Show("-ERROR-", e.what(), v);
+		ClearWindow();
+		Show();
+
 		return;
 	}
 }

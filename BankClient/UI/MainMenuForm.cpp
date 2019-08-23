@@ -14,15 +14,14 @@ MainMenuForm::MainMenuForm()
 MainMenuForm::~MainMenuForm()
 {
 	std::vector<JLinkText*>::const_iterator it;
-	for (it = items_.begin(); it != items_.end(); ++it)
+	for (it=items_.begin(); it!=items_.end(); ++it)
 		delete *it;
 }
 
 MainMenuForm::MainMenuForm(SHORT x, SHORT y, SHORT w, SHORT h)
 	: JForm(x, y, w, h)
 {
-
-char *texts[] =
+	char* texts[] =
 	{
 		"1. Open Account",
 		"2. To Deposit Money",
@@ -35,9 +34,9 @@ char *texts[] =
 		"0. Exit"
 	};
 
-	for (int i = 0; i < 9; i++)
+	for(int i=0; i<9; i++)
 	{
-		items_.push_back(new JLinkText(22, i * 2 + 5, 40, 1, texts[i], this));
+		items_.push_back(new JLinkText(22, i*2+5, 40, 1, texts[i], this));
 	}
 }
 
@@ -57,10 +56,10 @@ void MainMenuForm::DrawBorder()
 {
 	SetTextColor(FCOLOR_YELLO);
 	SetBkColor(BCOLOR_RED);
-	DrawHLine(0, 0, Width() - 1, '-');
-	DrawHLine(Height() - 1, 0, Width() - 1, '-');
-	DrawVLine(0, 1, Height() - 2, ' ');
-	DrawVLine(Width() - 1, 1, Height() - 2, ' ');
+	DrawHLine(0, 0, Width()-1, '-');
+	DrawHLine(Height()-1, 0, Width()-1, '-');
+	DrawVLine(0, 1, Height()-2, ' ');
+	DrawVLine(Width()-1, 1, Height()-2, ' ');
 }
 
 
@@ -104,29 +103,29 @@ void MainMenuForm::OnKeyEvent(JEvent* e)
 		break;
 	case KEY_(0):
 	case KEY_ESC:
-	{
-		e->Done();
-		std::vector<std::string> v;
-		v.push_back(" YES ");
-		v.push_back(" NO ");
-		std::string msg = "Do you want to exit?";
-
-		JWindow* curr = jApp->GetCurrent();
-
-		int result = JMessageBox::Show("-MESSAGE-", msg, v);
-		if (result == 0)
 		{
+			e->Done();
+			std::vector<std::string> v;
+			v.push_back(" YES ");
+			v.push_back(" NO ");
+			std::string msg = "Do you want to exit?";
+
+			JWindow* curr = jApp->GetCurrent();
+
+			int result = JMessageBox::Show("-MESSAGE-", msg,v);
+			if (result == 0)
+			{
+				ClearWindow();
+				Quit();
+				return;
+			}
+
 			ClearWindow();
-			Quit();
-			return;
+			curr->SetCurrent();
+			Show();
 		}
-
-		ClearWindow();
-		curr->SetCurrent();
-		Show();
-	}
-
-	break;
+		
+		break;
 	case KEY_ENTER:
 		if (e->GetSender() == items_[0])
 		{
@@ -177,7 +176,7 @@ void MainMenuForm::OnKeyEvent(JEvent* e)
 
 			JWindow* curr = jApp->GetCurrent();
 
-			int result = JMessageBox::Show("-MESSAGE-", msg, v);
+			int result = JMessageBox::Show("-MESSAGE-", msg,v);
 			if (result == 0)
 			{
 				ClearWindow();
@@ -287,7 +286,7 @@ void MainMenuForm::CloseAccount()
 
 void MainMenuForm::Quit()
 {
-	// TODO锛氳繑鍥炲埌鐧诲綍鐣岄潰
+	// TODO：返回到登录界面
 
 	JForm* form = Singleton<FormManager>::Instance().Get("LoginForm");
 	form->Show();

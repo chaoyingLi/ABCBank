@@ -4,7 +4,12 @@
 #include "MainMenuForm.h"
 #include "Validator.h"
 
+#include "../BankSession.h"
+#include "../TransactionManager.h"
+
 #include "../JFC/JMessageBox.h"
+
+#include "../../Public/Exception.h"
 
 using namespace UI;
 
@@ -18,9 +23,9 @@ ChangePasswordForm::~ChangePasswordForm()
 }
 
 ChangePasswordForm::ChangePasswordForm(SHORT x, SHORT y, SHORT w, SHORT h,
-									   const std::string& title)
+	const std::string& title)
 	: JForm(x, y, w, h),
-	  title_(title)
+	title_(title)
 {
 
 	lblAccountId_ = new JLabel(14, 5, 11, 1, "ACCOUNT ID:", this);
@@ -41,8 +46,8 @@ ChangePasswordForm::ChangePasswordForm(SHORT x, SHORT y, SHORT w, SHORT h,
 	lblNewPass2Tip_ = new JLabel(50, 14, 7, 1, "同上", this);
 
 	btnSubmit_ = new JButton(5, 20, 10, 3, "SUBMIT", this);
-	btnReset_ =	new JButton(50, 20, 10, 3,"RESET", this);
-	btnCancel_ = new JButton(65, 20, 10, 3,"CANCEL", this);
+	btnReset_ = new JButton(50, 20, 10, 3, "RESET", this);
+	btnCancel_ = new JButton(65, 20, 10, 3, "CANCEL", this);
 
 	editAccountId_->SetValidator(ValidateAccountId);
 	editPass_->SetValidator(ValidatePass);
@@ -57,11 +62,11 @@ void ChangePasswordForm::Draw()
 	DrawBorder();
 	SetTextColor(FCOLOR_BLUE);
 	SetBkColor(BCOLOR_WHITE);
-	JRECT rect = { 1, 1, Width()-2, Height()-2 };
+	JRECT rect = { 1, 1, Width() - 2, Height() - 2 };
 	FillRect(rect);
 
 	DrawText(5, 2, title_);
-	DrawHLine(3, 2, Width()-3, '-');
+	DrawHLine(3, 2, Width() - 3, '-');
 
 	JForm::Draw();
 }
@@ -70,10 +75,10 @@ void ChangePasswordForm::DrawBorder()
 {
 	SetTextColor(FCOLOR_YELLO);
 	SetBkColor(BCOLOR_RED);
-	DrawHLine(0, 0, Width()-1, '-');
-	DrawHLine(Height()-1, 0, Width()-1, '-');
-	DrawVLine(0, 1, Height()-2, ' ');
-	DrawVLine(Width()-1, 1, Height()-2, ' ');
+	DrawHLine(0, 0, Width() - 1, '-');
+	DrawHLine(Height() - 1, 0, Width() - 1, '-');
+	DrawVLine(0, 1, Height() - 2, ' ');
+	DrawVLine(Width() - 1, 1, Height() - 2, ' ');
 }
 
 void ChangePasswordForm::OnKeyEvent(JEvent* e)
@@ -134,7 +139,7 @@ void ChangePasswordForm::Submit()
 		v.push_back(" YES ");
 		std::string msg = "帐号小于6位";
 
-		JMessageBox::Show("-ERROR-", msg,v);
+		JMessageBox::Show("-ERROR-", msg, v);
 		ClearWindow();
 		Show();
 		editAccountId_->Show();
@@ -146,7 +151,7 @@ void ChangePasswordForm::Submit()
 		v.push_back(" YES ");
 		std::string msg = "密码小于6位";
 
-		JMessageBox::Show("-ERROR-", msg,v);
+		JMessageBox::Show("-ERROR-", msg, v);
 		ClearWindow();
 		Show();
 		editPass_->Show();
@@ -158,7 +163,7 @@ void ChangePasswordForm::Submit()
 		v.push_back(" YES ");
 		std::string msg = "确认密码不一致";
 
-		JMessageBox::Show("-ERROR-", msg,v);
+		JMessageBox::Show("-ERROR-", msg, v);
 		ClearWindow();
 		Show();
 		editNewPass2_->Show();
@@ -171,7 +176,7 @@ void ChangePasswordForm::Submit()
 		v.push_back(" YES ");
 		std::string msg = "新密码与原密码不能相同";
 
-		JMessageBox::Show("-ERROR-", msg,v);
+		JMessageBox::Show("-ERROR-", msg, v);
 		ClearWindow();
 		Show();
 		editNewPass_->Show();
@@ -179,4 +184,50 @@ void ChangePasswordForm::Submit()
 	}
 
 	// 以下为实际的修改密码操作
+	try
+	{
+		BankSession bs;
+		bs.SetCmd(CMD_CHANGE_PASSWORD);
+		bs.SetAttribute("account_id", editAccountId_->GetText());
+		bs.SetAttribute("pass", editPass_->GetText());
+		bs.SetAttribute("newpass", editNewPass_->GetText());
+
+		Singleton<TransactionManager>::Instance().DoAction(bs);
+		if (bs.GetErrorCode() == 0)
+		{
+			Reset();
+			std::vector<std::string> v;
+			v.push_back(" YES ");
+			std::string msg = "修改密码成功";
+
+			JMessageBox::Show("-MESSAGE-", msg, v);
+
+
+			JForm* form = Singleton<FormManager>::Instance().Get("MainMenuForm");
+			dynamic_cast<MainMenuForm*>(form)->GetItems()[5]->SetCurrent();
+			form->ClearWindow();
+			form->Show();
+		}
+		else
+		{
+			std::vector<std::string> v;
+			v.push_back(" YES ");
+
+			JMessageBox::Show("-ERROR-", bs.GetErrorMsg(), v);
+			ClearWindow();
+			Show();
+			return;
+		}
+	}
+	catch (Exception& e)
+	{
+		std::vector<std::string> v;
+		v.push_back(" YES ");
+
+		int result = JMessageBox::Show("-ERROR-", e.what(), v);
+		ClearWindow();
+		Show();
+
+		return;
+	}
 }

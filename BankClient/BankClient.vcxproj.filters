@@ -22,6 +22,9 @@
     <Filter Include="PUBLIC">
       <UniqueIdentifier>{eb7ec62c-019e-4b3b-9980-e77106734fe1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="CMD">
+      <UniqueIdentifier>{1cd042a1-7999-49cf-b3e3-b9a1a51d4992}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -97,6 +100,96 @@
       <Filter>UI</Filter>
     </ClCompile>
     <ClCompile Include="UI\WithdrawalForm.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Client.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Public\Date.cpp">
+      <Filter>PUBLIC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Public\Exception.cpp">
+      <Filter>PUBLIC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Public\Idea.cpp">
+      <Filter>PUBLIC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Public\JInStream.cpp">
+      <Filter>PUBLIC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Public\JOutStream.cpp">
+      <Filter>PUBLIC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Public\JThread.cpp">
+      <Filter>PUBLIC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Public\JUtil.cpp">
+      <Filter>PUBLIC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Public\Logging.cpp">
+      <Filter>PUBLIC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Public\LogStream.cpp">
+      <Filter>PUBLIC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Public\MD5.cpp">
+      <Filter>PUBLIC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Public\Socket.cpp">
+      <Filter>PUBLIC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Public\StringUtil.cpp">
+      <Filter>PUBLIC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Public\Systemconfig.cpp">
+      <Filter>PUBLIC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Public\Timestamp.cpp">
+      <Filter>PUBLIC</Filter>
+    </ClCompile>
+    <ClCompile Include="CMD\BalanceInquiry.cpp">
+      <Filter>CMD</Filter>
+    </ClCompile>
+    <ClCompile Include="CMD\ChangePassword.cpp">
+      <Filter>CMD</Filter>
+    </ClCompile>
+    <ClCompile Include="CMD\CloseAccount.cpp">
+      <Filter>CMD</Filter>
+    </ClCompile>
+    <ClCompile Include="CMD\Deposit.cpp">
+      <Filter>CMD</Filter>
+    </ClCompile>
+    <ClCompile Include="CMD\OpenAccount.cpp">
+      <Filter>CMD</Filter>
+    </ClCompile>
+    <ClCompile Include="CMD\QueryAccountHistoryBill.cpp">
+      <Filter>CMD</Filter>
+    </ClCompile>
+    <ClCompile Include="CMD\QueryDayBill.cpp">
+      <Filter>CMD</Filter>
+    </ClCompile>
+    <ClCompile Include="CMD\QueryHistoryBill.cpp">
+      <Filter>CMD</Filter>
+    </ClCompile>
+    <ClCompile Include="CMD\Transfer.cpp">
+      <Filter>CMD</Filter>
+    </ClCompile>
+    <ClCompile Include="CMD\UserLogin.cpp">
+      <Filter>CMD</Filter>
+    </ClCompile>
+    <ClCompile Include="CMD\Withdrawal.cpp">
+      <Filter>CMD</Filter>
+    </ClCompile>
+    <ClCompile Include="BankSession.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="TransactionManager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\ReceiptForm.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\ReportForm.cpp">
       <Filter>UI</Filter>
     </ClCompile>
   </ItemGroup>
@@ -178,6 +271,105 @@
     </ClInclude>
     <ClInclude Include="..\Public\Singleton.h">
       <Filter>PUBLIC</Filter>
+    </ClInclude>
+    <ClInclude Include="Client.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Date.h">
+      <Filter>PUBLIC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Exception.h">
+      <Filter>PUBLIC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Idea.h">
+      <Filter>PUBLIC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\JInStream.h">
+      <Filter>PUBLIC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\JOutStream.h">
+      <Filter>PUBLIC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\JThread.h">
+      <Filter>PUBLIC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\JUtil.h">
+      <Filter>PUBLIC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Logging.h">
+      <Filter>PUBLIC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\LogStream.h">
+      <Filter>PUBLIC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\MD5.h">
+      <Filter>PUBLIC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Socket.h">
+      <Filter>PUBLIC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\StringUtil.h">
+      <Filter>PUBLIC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\SystemConfig.h">
+      <Filter>PUBLIC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Timestamp.h">
+      <Filter>PUBLIC</Filter>
+    </ClInclude>
+    <ClInclude Include="JFC\Color.h">
+      <Filter>JFC</Filter>
+    </ClInclude>
+    <ClInclude Include="CMD\BalanceInquiry.h">
+      <Filter>CMD</Filter>
+    </ClInclude>
+    <ClInclude Include="CMD\ChangePassword.h">
+      <Filter>CMD</Filter>
+    </ClInclude>
+    <ClInclude Include="CMD\CloseAccount.h">
+      <Filter>CMD</Filter>
+    </ClInclude>
+    <ClInclude Include="CMD\Deposit.h">
+      <Filter>CMD</Filter>
+    </ClInclude>
+    <ClInclude Include="CMD\OpenAccount.h">
+      <Filter>CMD</Filter>
+    </ClInclude>
+    <ClInclude Include="CMD\QueryAccountHistoryBill.h">
+      <Filter>CMD</Filter>
+    </ClInclude>
+    <ClInclude Include="CMD\QueryDayBill.h">
+      <Filter>CMD</Filter>
+    </ClInclude>
+    <ClInclude Include="CMD\QueryHistoryBill.h">
+      <Filter>CMD</Filter>
+    </ClInclude>
+    <ClInclude Include="CMD\Transaction.h">
+      <Filter>CMD</Filter>
+    </ClInclude>
+    <ClInclude Include="CMD\Transfer.h">
+      <Filter>CMD</Filter>
+    </ClInclude>
+    <ClInclude Include="CMD\UserLogin.h">
+      <Filter>CMD</Filter>
+    </ClInclude>
+    <ClInclude Include="CMD\Withdrawal.h">
+      <Filter>CMD</Filter>
+    </ClInclude>
+    <ClInclude Include="BankSession.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="TransactionManager.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\ReceiptForm.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="TransDetail.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\ReportForm.h">
+      <Filter>UI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
